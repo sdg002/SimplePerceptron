@@ -9,7 +9,10 @@ namespace XUnitTestProject1.util
     {
         internal static IEnumerable<Vector> GenerateTrainingPointsForXor()
         {
-            throw new NotImplementedException();
+            List<Vector> xordatapoints = new List<Vector>();
+            //TODO implementation required
+            provide some points for the unit test to work
+            return xordatapoints;
         }
     }
 }

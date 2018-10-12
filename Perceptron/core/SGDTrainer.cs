@@ -14,6 +14,7 @@ namespace Perceptron.core
         public MultilayerPerceptron Perceptron { get ; set ; }
         public int NotificationEpochs { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public IEnumerable<Vector> Vectors { get ; set ; }
+        public int MaxEpochs { get ; set ; }
 
         public event EventHandler<NotifyProgressArgs> OnNotifyProgressArgs;
         public event EventHandler<EpochBeginArgs> OnEpochBegin;
@@ -25,6 +26,17 @@ namespace Perceptron.core
 
         public void Train()
         {
+            for(int epochs=0;epochs<this.MaxEpochs;epochs++)
+            {
+                foreach (Vector vec in this.Vectors)
+                {
+                    VectorPropagationContext ctx = new VectorPropagationContext(vec);
+                    core.Utils.DoForwardPass(this.Perceptron, ctx);
+                    core.Utils.DoBackwardPass(this.Perceptron, ctx);
+                    core.Utils.UpdateNetworkWeights(this.Perceptron, ctx);
+                }
+                you were here.
+            }
             throw new NotImplementedException();
         }
     }

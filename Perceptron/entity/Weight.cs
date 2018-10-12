@@ -10,6 +10,16 @@ namespace Perceptron.entity
     {
         private static long _idtracker = 1;
         long _id;
+        private double _value;
+        /// <summary>
+        /// Gets/sets the value of the weight
+        /// </summary>
+        public double Value
+        {
+            get { return _value; }
+            set { _value = value; }
+        }
+
         public Weight()
         {
             _id = System.Threading.Interlocked.Increment(ref _idtracker);

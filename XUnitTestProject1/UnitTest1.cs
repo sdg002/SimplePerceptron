@@ -13,7 +13,7 @@ namespace XUnitTestProject1
         public void BasicXOR()
         {
             Perceptron.interfaces.IBackPropagationAlgo trainer = new Perceptron.core.SGDTrainer();
-            Perceptron.entity.MultilayerPerceptron networkXOR = Perceptron.core.Utils.CreateNetwork(10, 2, 2, 1);
+            Perceptron.entity.MultilayerPerceptron networkXOR = Perceptron.core.Utils.CreateNetwork(10,  2, 1);
             trainer.Vectors = util.Helper.GenerateTrainingPointsForXor();
             ///
             /// Randomize the network wts, ensure that the network produces atleast 1 error 
@@ -75,6 +75,28 @@ namespace XUnitTestProject1
 
                 }
             }
+        }
+        [Fact]
+        void ComputeActivationSigmoid()
+        {
+            Random rnd = new Random(DateTime.Now.Millisecond);
+            Perceptron.entity.Layer l = new Perceptron.entity.Layer();
+            l.Activation = Perceptron.entity.ActivationType.Sigmoid;
+
+            double dotproduct = rnd.NextDouble();
+            double activationActual=Perceptron.core.Utils.ComputeActivation(l, null,dotproduct);
+            double activationExpected = 1 / (1 + Math.Exp(-dotproduct));
+            Assert.Equal(activationActual, activationActual, 5);
+        }
+        [Fact]
+        void ComputeNetworkOutput()
+        {
+            throw new NotImplementedException();
+        }
+        [Fact]
+        void SaveNetwork2Json()
+        {
+            throw new NotImplementedException();
         }
     }
 }

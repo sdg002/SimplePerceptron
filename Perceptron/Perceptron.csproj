@@ -47,6 +47,7 @@
     <Compile Include="entity\MultilayerPerceptron.cs" />
     <Compile Include="entity\Neuron.cs" />
     <Compile Include="entity\Vector.cs" />
+    <Compile Include="entity\VectorPropagationContext.cs" />
     <Compile Include="entity\Weight.cs" />
     <Compile Include="core\BGDTrainer.cs" />
     <Compile Include="core\SGDTrainer.cs" />

@@ -49,16 +49,105 @@ namespace Perceptron.core
             mlp.Layers = layers.ToArray();
             return mlp;
         }
-        /// <summary>
-        /// Randomize the network wts using Xavier approach
-        /// </summary>
-        /// <param name="networkXOR"></param>
-        public static void RandomizeNetworkWeights(MultilayerPerceptron networkXOR)
+
+        internal static void DoBackwardPass(MultilayerPerceptron perceptron, VectorPropagationContext ctx)
         {
             throw new NotImplementedException();
         }
 
-        public static double[] ComputeNetworkOutput(MultilayerPerceptron networkXOR, Vector vector)
+        internal static void UpdateNetworkWeights(MultilayerPerceptron perceptron, VectorPropagationContext ctx)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Randomize the network wts using Xavier approach
+        /// </summary>
+        /// <param name="network"></param>
+        public static void RandomizeNetworkWeights(MultilayerPerceptron network)
+        {
+            //TODO implementation required
+        }
+        /// <summary>
+        /// This function computes the output values at the output layer using the given input vector and trained network
+        /// </summary>
+        /// <param name="network"></param>
+        /// <param name="vector"></param>
+        /// <returns></returns>
+        public static double[] ComputeNetworkOutput(MultilayerPerceptron network, Vector vector)
+        {
+            VectorPropagationContext vectorContext = new VectorPropagationContext(vector);
+            DoForwardPass(network,vectorContext);
+            Layer layerLast = network.Layers.Last();
+            double[] activationsFromLastLayer=layerLast.
+                Nodes.Select(nd => vectorContext.NodeActivationCache[nd.GetID()]).ToArray();
+            return activationsFromLastLayer;
+        }
+        /// <summary>
+        /// Internal function which will do the forward pass from the first layer to the last.
+        /// Dotproducts and activations at each node will be computed and cached in the context object
+        /// </summary>
+        /// <param name="network">The MLP</param>
+        /// <param name="ctx">The context wrapper over the training vector</param>
+        internal static void DoForwardPass(
+            MultilayerPerceptron network, VectorPropagationContext ctx)
+        {
+            for (int layerindex = 0; layerindex < network.Layers.Length; layerindex++)
+            {
+                Layer layerCurrent = network.Layers[layerindex];
+                Layer layerPrevious = null;
+                int countOfNodes = layerCurrent.Nodes.Length;
+                double[] incomingvalues = null;//Values coming into this layer
+                if (layerindex == 0)
+                {
+                    //We are on the first layer, so the inputs are the vector itself
+                    incomingvalues = ctx.Vector.Inputs;
+                }
+                else
+                {
+                    //We are on hidden layers, so the inputs are the activations of the previous layer
+                    layerPrevious = network.Layers[layerindex - 1];
+                    incomingvalues = layerPrevious.Nodes.Select(nd => ctx.NodeActivationCache[nd.GetID()]).ToArray();
+                }
+                for (int nodeindex = 0; nodeindex < countOfNodes; nodeindex++)
+                {
+                    Neuron node = layerCurrent.Nodes[nodeindex];
+                    double dotproduct = 0;
+                    for (int i = 0; i < node.Weights.Length; i++)
+                    {
+                        dotproduct = dotproduct + incomingvalues[i] * node.Weights[i].Value;
+                    }
+                    dotproduct += node.Bias.Value;
+                    ctx.NodeDotProductsCache[node.GetID()] = dotproduct;
+                    double activation = ComputeActivation(layerCurrent, node, dotproduct);
+                    ctx.NodeActivationCache[node.GetID()] = activation;
+                }
+            }
+        }
+        /// <summary>
+        /// Computes the activation using the dotproduct
+        /// </summary>
+        /// <param name="layer">The layer object which contains the neuron</param>
+        /// <param name="node">The neuron on which activation is being computed</param>
+        /// <param name="dotproduct">The dotproduct value which will be used for computing the activation</param>
+        /// <returns></returns>
+        public static double ComputeActivation(Layer layer, Neuron node, double dotproduct)
+        {
+            if (layer.Activation == ActivationType.Sigmoid)
+            {
+                double output = 1 / (1 + Math.Exp(-dotproduct));
+                return output;
+            }
+            else
+            {
+                throw new NotImplementedException($"This activation type is not yet implemented. {layer.Activation}");
+            }
+        }
+        public static string SaveNetworkToJson(Perceptron.entity.MultilayerPerceptron network)
+        {
+            throw new NotImplementedException();
+        }
+        public static Perceptron.entity.MultilayerPerceptron LoadNetworkFromJson(string json)
         {
             throw new NotImplementedException();
         }
