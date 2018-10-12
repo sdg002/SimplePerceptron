@@ -4,6 +4,7 @@ using Xunit;
 using System.Linq;
 using System.Diagnostics;
 
+
 namespace XUnitTestProject1
 {
     public class UnitTest1
@@ -46,6 +47,34 @@ namespace XUnitTestProject1
         private void Trainer_OnNotifyProgressArgs(object sender, Perceptron.interfaces.NotifyProgressArgs e)
         {
             e.Cancel = false;
+        }
+        [Fact]        
+        public void CreateNewNetwork()
+        {
+            var mlp = Perceptron.core.Utils.CreateNetwork(3, 4, 8, 2);
+            Assert.True(mlp.Layers.Length ==  3);
+            Assert.True(mlp.Inputs == 3);
+            Assert.True(mlp.Layers[0].Nodes.Length == 4);
+            Assert.True(mlp.Layers[1].Nodes.Length == 8);
+            Assert.True(mlp.Layers[2].Nodes.Length == 2);
+            for (int layerindex = 0; layerindex < mlp.Layers.Length; layerindex++)
+            {
+                var nodes = mlp.Layers[layerindex].Nodes;
+                foreach(var node in nodes)
+                {
+                    if (layerindex == 0)
+                    {
+                        //first layer
+                        Assert.True(node.Weights.Length == mlp.Inputs);
+                    }
+                    else
+                    {
+                        //hidden layer or output layer
+                        Assert.True(node.Weights.Length == mlp.Layers[layerindex - 1].Nodes.Length);
+                    }
+
+                }
+            }
         }
     }
 }

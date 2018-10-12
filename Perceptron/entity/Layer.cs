@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace Perceptron.entity
 {
-    class Layer
+    /// <summary>
+    /// Represents either a hidden or an output layer
+    /// </summary>
+    public class Layer
     {
+        /// <summary>
+        /// The nodes in this layer
+        /// </summary>
+        public Neuron[] Nodes { get; set; }
     }
 }
