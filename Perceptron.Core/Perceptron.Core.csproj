@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Perceptron\core\BGDTrainer.cs" Link="BGDTrainer.cs" />
+    <Compile Include="..\Perceptron\core\SGDTrainer.cs" Link="SGDTrainer.cs" />
+    <Compile Include="..\Perceptron\core\Utils.cs" Link="Utils.cs" />
+    <Compile Include="..\Perceptron\entity\Layer.cs" Link="Layer.cs" />
+    <Compile Include="..\Perceptron\entity\MultilayerPerceptron.cs" Link="MultilayerPerceptron.cs" />
+    <Compile Include="..\Perceptron\entity\Neuron.cs" Link="Neuron.cs" />
+    <Compile Include="..\Perceptron\entity\Vector.cs" Link="Vector.cs" />
+    <Compile Include="..\Perceptron\entity\Weight.cs" Link="Weight.cs" />
+    <Compile Include="..\Perceptron\interfaces\EpochBeginArgs.cs" Link="EpochBeginArgs.cs" />
+    <Compile Include="..\Perceptron\interfaces\IBackPropagationAlgo.cs" Link="IBackPropagationAlgo.cs" />
+    <Compile Include="..\Perceptron\interfaces\NotifyProgressArgs.cs" Link="NotifyProgressArgs.cs" />
+  </ItemGroup>
+
+</Project>
