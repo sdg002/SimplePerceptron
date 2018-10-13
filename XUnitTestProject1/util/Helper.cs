@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using Perceptron.entity;
@@ -31,6 +32,24 @@ namespace XUnitTestProject1.util
             xordatapoints.AddRange(pointsAround_1_1);
             return xordatapoints;
         }
+        /// <summary>
+        /// Internal method to evaluate the output of a vector on a trained network and then compare with expected output
+        /// </summary>
+        /// <param name="perceptron"></param>
+        /// <param name="vectors"></param>
+        /// <returns></returns>
+        internal static Vector[] EvaluateVectors(MultilayerPerceptron perceptron, IEnumerable<Vector> vectors)
+        {
+            List<Vector> vectorsFailed = new List<Vector>();
+            foreach (Perceptron.entity.Vector vector in vectors)
+            {
+                double[] outputs = Perceptron.core.Utils.ComputeNetworkOutput(perceptron, vector);
+                double[] outputsQuantized = outputs.Select(opt => (opt > 0.5) ? 1.0 : 0.0).ToArray();
+                if (outputsQuantized.SequenceEqual(vector.Outputs) == false) vectorsFailed.Add(vector);
+            }
+            return vectorsFailed.ToArray();
+        }
+
         /// <summary>
         /// Generate the specified number of random points around the specified coordinates.
         /// </summary>
