@@ -23,5 +23,14 @@ namespace Perceptron.entity
         /// Sets/gets the type of activation on this layer
         /// </summary>
         public entity.ActivationType Activation { get; set; }
+        /// <summary>
+        /// Used defined comments
+        /// </summary>
+        public string Comments { get; set; }
+        public override string ToString()
+        {
+            int countOfNodes = (this.Nodes == null) ? 0 : this.Nodes.Length;
+            return $"Nodes={countOfNodes};Comments={Comments}";
+        }
     }
 }

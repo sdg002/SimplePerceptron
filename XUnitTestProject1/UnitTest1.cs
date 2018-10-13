@@ -13,7 +13,7 @@ namespace XUnitTestProject1
         public void BasicXOR()
         {
             Perceptron.interfaces.IBackPropagationAlgo trainer = new Perceptron.core.SGDTrainer();
-            Perceptron.entity.MultilayerPerceptron networkXOR = Perceptron.core.Utils.CreateNetwork(10,  2, 1);
+            Perceptron.entity.MultilayerPerceptron networkXOR = Perceptron.core.Utils.CreateNetwork(2,  2, 1);
             trainer.Vectors = util.Helper.GenerateTrainingPointsForXor();
             ///
             /// Randomize the network wts, ensure that the network produces atleast 1 error 
@@ -35,13 +35,23 @@ namespace XUnitTestProject1
             trainer.Perceptron = networkXOR;
             trainer.NotificationEpochs = 10;
             trainer.OnNotifyProgressArgs += Trainer_OnNotifyProgressArgs;
-            trainer.LearningRate = 0.1;
-            trainer.Vectors = (new Perceptron.entity.Vector[] { }) as IEnumerable<Perceptron.entity.Vector>;
+            trainer.LearningRate = 0.3;
+            trainer.MaxEpochs = 25000;
             trainer.Train();
-
-            //you were here///keep implementing SGD , without bothering about filling in other functions
-            //establish the signatures
-            //try simialr exercise with BGD
+            ///
+            /// Training complete - evaluate the results
+            ///
+            {
+                int errors = 0;
+                foreach (Perceptron.entity.Vector vector in trainer.Vectors)
+                {
+                    double[] outputs = Perceptron.core.Utils.ComputeNetworkOutput(networkXOR, vector);
+                    double[] outputsQuantized = outputs.Select(opt => (opt > 0.5) ? 1.0 : 0.0).ToArray();
+                    if (outputsQuantized.SequenceEqual(vector.Outputs) == false) errors++;
+                }
+                Trace.WriteLine($"The network generated {errors} errors after training.");
+                Assert.True(errors == 0);
+            }
         }
 
         private void Trainer_OnNotifyProgressArgs(object sender, Perceptron.interfaces.NotifyProgressArgs e)
@@ -66,13 +76,15 @@ namespace XUnitTestProject1
                     {
                         //first layer
                         Assert.True(node.Weights.Length == mlp.Inputs);
+                        foreach (var wt in node.Weights) Assert.NotNull(wt);
                     }
                     else
                     {
                         //hidden layer or output layer
                         Assert.True(node.Weights.Length == mlp.Layers[layerindex - 1].Nodes.Length);
+                        foreach (var wt in node.Weights) Assert.NotNull(wt);
                     }
-
+                    Assert.NotNull(node.Bias);
                 }
             }
         }

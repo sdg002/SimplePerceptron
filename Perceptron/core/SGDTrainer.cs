@@ -12,7 +12,7 @@ namespace Perceptron.core
     {
         public double LearningRate { get ; set ; }
         public MultilayerPerceptron Perceptron { get ; set ; }
-        public int NotificationEpochs { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int NotificationEpochs { get; set; }
         public IEnumerable<Vector> Vectors { get ; set ; }
         public int MaxEpochs { get ; set ; }
 
@@ -37,10 +37,9 @@ namespace Perceptron.core
                     core.Utils.DoBackwardPassComputeDeltas(this.Perceptron, ctx);
                     this.ComputeWeightUpdates(ctx);
                 }
-                bool cancel=NotifyProgress(epochs, wrappers);
-                if (cancel) return;
+                //bool cancel=NotifyProgress(epochs, wrappers);
+                //if (cancel) return;
             }
-            throw new NotImplementedException();
         }
         /// <summary>
         /// You have the deltas at every node. Now compute the wt updates.
@@ -79,10 +78,12 @@ namespace Perceptron.core
                         double wt_increment = -this.LearningRate * derivative;
                         double wt_new = wt_existing + wt_increment;
                         wt.Value = wt_new;
-                    }                    
+                    }
+                    double bias_derivative = deltaAtNode * 1.0;
+                    double bias_increment = -this.LearningRate*bias_derivative;
+                    node.Bias.Value = node.Bias.Value + bias_increment;
                 }
             }
-            throw new NotImplementedException();
         }
         private bool NotifyProgress(int epochs, List<VectorPropagationContext> wrappers)
         {

@@ -31,6 +31,11 @@ namespace Perceptron.entity
         /// Expected output attributes from this training/test vector
         /// </summary>
         public double[] Outputs { get; set; }
-
+        public override string ToString()
+        {
+            int countOfInputs = (this.Inputs == null) ? 0 : this.Inputs.Length;
+            int countOfOutputs = (this.Outputs== null) ? 0 : this.Outputs.Length;
+            return $"Comments={this.Comments}, Inputs={countOfInputs}; Outputs={countOfOutputs}";
+        }
     }
 }

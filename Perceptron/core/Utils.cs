@@ -9,6 +9,8 @@ namespace Perceptron.core
 {
     public class Utils
     {
+        private static Random rnd = new Random(DateTime.Now.Millisecond);
+
         /// <summary>
         /// Creates a new multilayer perceptron network
         /// </summary>
@@ -34,14 +36,15 @@ namespace Perceptron.core
                     Neuron node = new Neuron();
                     if (layerindex == 0)
                     {
-                        node.Weights = new Weight[inputs];
+                        node.Weights = _CreateArrayOfWeights(inputs);
                     }
                     else
                     {
                         //No of wts would be equal to the no of nodes in the previous layer
-                        node.Weights = new Weight[nodesperlayer[layerindex - 1]];
+                        node.Weights = _CreateArrayOfWeights(nodesperlayer[layerindex - 1]);  //new Weight[nodesperlayer[layerindex - 1]];
                     }
                     nodes.Add(node);
+                    node.Bias = new Weight();
                 }
                 layer.Nodes = nodes.ToArray();
                 layers.Add(layer);
@@ -49,6 +52,14 @@ namespace Perceptron.core
             mlp.Layers = layers.ToArray();
             return mlp;
         }
+
+        private static Weight[] _CreateArrayOfWeights(int inputs)
+        {
+            List<Weight> wts = new List<Weight>();
+            for (int index = 0; index < inputs; index++) wts.Add(new Weight());
+            return wts.ToArray();
+        }
+
         /// <summary>
         /// Compute the deltas at each node
         ///     
@@ -89,27 +100,38 @@ namespace Perceptron.core
                     for (int nodeindex = 0; nodeindex < countOfNodes; nodeindex++)
                     {
                         Neuron nodeCurrent = layerCurrent.Nodes[nodeindex];
+                        double activation = ctx.NodeActivationCache[nodeCurrent.GetID()];
+                        double dotproduct= ctx.NodeDotProductsCache[nodeCurrent.GetID()];
                         double summationOfDeltas = 0.0;
                         //For every node ahead, sum up the weight and delta of that node
                         for (int nodeindex_ahead = 0; nodeindex_ahead < countOfNodesAhead; nodeindex_ahead++)
                         {
-                            Neuron nodeAhead = layerAhead.Nodes[nodeindex];
+                            Neuron nodeAhead = layerAhead.Nodes[nodeindex_ahead];
                             double wt_from_layer_current_to_ahead = nodeAhead.Weights[nodeindex].Value;
                             double deltaNodeAhead = ctx.NodeDeltaCache[nodeAhead.GetID()];
                             summationOfDeltas += wt_from_layer_current_to_ahead * deltaNodeAhead;
                         }
-                        ctx.NodeDeltaCache[nodeCurrent.GetID()] = summationOfDeltas;
+                        double derivative = ComputeDerivativeOfActivation(layerCurrent, nodeCurrent,dotproduct,activation);
+                        ctx.NodeDeltaCache[nodeCurrent.GetID()] = summationOfDeltas*derivative;
                     }
                 }
             }
         }
         /// <summary>
-        /// Randomize the network wts using Xavier approach
+        /// Randomize the network wts between -1 and +1
         /// </summary>
         /// <param name="network"></param>
         public static void RandomizeNetworkWeights(MultilayerPerceptron network)
         {
-            //TODO implementation required
+            Neuron[] allNodes = network.Layers.SelectMany(l => l.Nodes).ToArray();
+            foreach(var node in allNodes)
+            {
+                foreach(var wt in node.Weights)
+                {
+                    wt.Value = -1.0 + rnd.NextDouble() * 2.0;
+                }
+                node.Bias.Value = -1.0 + rnd.NextDouble() * 2.0;
+            }
         }
         /// <summary>
         /// This function computes the output values at the output layer using the given input vector and trained network

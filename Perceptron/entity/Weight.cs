@@ -33,7 +33,10 @@ namespace Perceptron.entity
 
             return _id;
         }
-
+        public override string ToString()
+        {
+            return $"Weight={_value};ID={_id}";
+        }
 
     }
 }

@@ -25,5 +25,9 @@ namespace Perceptron.entity
         }
         public Weight[] Weights { get; set; }
         public Weight Bias { get; set; }
+        public override string ToString()
+        {
+            return $"Weights={Weights.Length}; Bias={this.Bias.Value}; ID={_id}";
+        }
     }
 }
