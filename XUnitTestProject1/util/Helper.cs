@@ -33,6 +33,29 @@ namespace XUnitTestProject1.util
             return xordatapoints;
         }
         /// <summary>
+        /// Internal method to create a XOR network and initialize with weights
+        /// Not all wts produce converge to a solution. Hence this step of recording wts which led to successful training
+        /// </summary>
+        /// <returns></returns>
+        internal static MultilayerPerceptron CreateXORNetwork()
+        {
+            var network=Perceptron.core.Utils.CreateNetwork(2, 2, 1);
+            network.Layers[0].Nodes[0].Weights[0].Value = 0.015732870910192265;
+            network.Layers[0].Nodes[0].Weights[1].Value = -0.45681309488453581;
+            network.Layers[0].Nodes[0].Bias.Value = -0.78474869475921083;
+
+            network.Layers[0].Nodes[1].Weights[0].Value = -0.76899536595167373;
+            network.Layers[0].Nodes[1].Weights[1].Value = 0.3320003828648479;
+            network.Layers[0].Nodes[1].Bias.Value = 0.77580667276671478;
+
+            network.Layers[1].Nodes[0].Weights[0].Value = -0.7763338451163535;
+            network.Layers[1].Nodes[0].Weights[1].Value = 0.081352289338294526;
+            network.Layers[1].Nodes[0].Bias.Value = -0.23060310782427118;
+
+            return network;
+        }
+
+        /// <summary>
         /// Internal method to evaluate the output of a vector on a trained network and then compare with expected output
         /// </summary>
         /// <param name="perceptron"></param>
