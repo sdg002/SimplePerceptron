@@ -89,6 +89,18 @@ namespace XUnitTestProject1
             Assert.Equal(activationActual, activationActual, 5);
         }
         [Fact]
+        void ComputeDerivativeSigmoid()
+        {
+            Random rnd = new Random(DateTime.Now.Millisecond);
+            Perceptron.entity.Layer l = new Perceptron.entity.Layer();
+            l.Activation = Perceptron.entity.ActivationType.Sigmoid;
+
+            double activation = rnd.NextDouble();
+            double derivativeActual = Perceptron.core.Utils.ComputeDerivativeOfActivation(l, null, 0,activation);
+            double derivativeExpected = activation * (1 - activation);
+            Assert.Equal(derivativeActual, derivativeActual, 5);
+        }
+        [Fact]
         void ComputeNetworkOutput()
         {
             throw new NotImplementedException();

@@ -46,5 +46,14 @@ namespace Perceptron.entity
         /// Caches the weight updates that were computed for this training vector when the backward pass had completed
         /// </summary>
         public Dictionary<long, double> WeightUpdateCache { get => _weightUpdatesCache;  }
+        /// <summary>
+        /// Used for recording the errors at the output layer
+        /// </summary>
+        public double[] OutputLayerErrors;
+        /// <summary>
+        /// Used for recording the MSE at the output layer. This is derived from the values held in OutputLayerErrors
+        /// </summary>
+        public double MeanSquaredError { get; internal set; }
+
     }
 }

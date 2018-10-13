@@ -49,17 +49,60 @@ namespace Perceptron.core
             mlp.Layers = layers.ToArray();
             return mlp;
         }
-
-        internal static void DoBackwardPass(MultilayerPerceptron perceptron, VectorPropagationContext ctx)
+        /// <summary>
+        /// Compute the deltas at each node
+        ///     
+        /// </summary>
+        /// <param name="perceptron"></param>
+        /// <param name="ctx"></param>
+        internal static void DoBackwardPassComputeDeltas(MultilayerPerceptron network, VectorPropagationContext ctx)
         {
-            throw new NotImplementedException();
+            for (int layerindex = network.Layers.Length-1; layerindex >= 0; layerindex--)
+            {
+                Layer layerCurrent = network.Layers[layerindex];
+                Layer layerAhead = null;
+                int countOfNodes = layerCurrent.Nodes.Length;
+                if (layerindex == network.Layers.Length -1 )
+                {
+                    //We are on the last layer
+                    ctx.OutputLayerErrors = new double[countOfNodes];
+                    for (int nodeindex = 0; nodeindex < countOfNodes; nodeindex++)
+                    {
+                        Neuron nodeCurrent = layerCurrent.Nodes[nodeindex];
+                        double outputExpected = ctx.Vector.Outputs[nodeindex];
+                        double outputActual = ctx.NodeActivationCache[nodeCurrent.GetID()];
+                        double errorAtNode = outputExpected - outputActual;
+                        //ctx.NodeActivationCache[node.GetID()] = activation;
+                        double dotproduct = ctx.NodeDotProductsCache[nodeCurrent.GetID()];
+                        double derivative=ComputeDerivativeOfActivation(layerCurrent, nodeCurrent, dotproduct, outputActual);
+                        double deltaNode = -errorAtNode * derivative;
+                        ctx.NodeDeltaCache[nodeCurrent.GetID()] = deltaNode;
+                    }
+                    double mse = 0.5*ctx.OutputLayerErrors.Select(e => e * e).Sum();
+                    ctx.MeanSquaredError = mse;
+                }
+                else
+                {
+                    //We are on the intermediate layers
+                    layerAhead = network.Layers[layerindex + 1];
+                    int countOfNodesAhead = layerAhead.Nodes.Length;
+                    for (int nodeindex = 0; nodeindex < countOfNodes; nodeindex++)
+                    {
+                        Neuron nodeCurrent = layerCurrent.Nodes[nodeindex];
+                        double summationOfDeltas = 0.0;
+                        //For every node ahead, sum up the weight and delta of that node
+                        for (int nodeindex_ahead = 0; nodeindex_ahead < countOfNodesAhead; nodeindex_ahead++)
+                        {
+                            Neuron nodeAhead = layerAhead.Nodes[nodeindex];
+                            double wt_from_layer_current_to_ahead = nodeAhead.Weights[nodeindex].Value;
+                            double deltaNodeAhead = ctx.NodeDeltaCache[nodeAhead.GetID()];
+                            summationOfDeltas += wt_from_layer_current_to_ahead * deltaNodeAhead;
+                        }
+                        ctx.NodeDeltaCache[nodeCurrent.GetID()] = summationOfDeltas;
+                    }
+                }
+            }
         }
-
-        internal static void UpdateNetworkWeights(MultilayerPerceptron perceptron, VectorPropagationContext ctx)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// Randomize the network wts using Xavier approach
         /// </summary>
@@ -136,6 +179,26 @@ namespace Perceptron.core
             if (layer.Activation == ActivationType.Sigmoid)
             {
                 double output = 1 / (1 + Math.Exp(-dotproduct));
+                return output;
+            }
+            else
+            {
+                throw new NotImplementedException($"This activation type is not yet implemented. {layer.Activation}");
+            }
+        }
+        /// <summary>
+        /// Computes the derivative of the activation function - depending on the type of derivative
+        /// </summary>
+        /// <param name="layer"></param>
+        /// <param name="node"></param>
+        /// <param name="dotproduct"></param>
+        /// <param name="activation"></param>
+        /// <returns></returns>
+        public static double ComputeDerivativeOfActivation(Layer layer, Neuron node, double dotproduct, double activation)
+        {
+            if (layer.Activation == ActivationType.Sigmoid)
+            {
+                double output = activation * (1 - activation);
                 return output;
             }
             else
