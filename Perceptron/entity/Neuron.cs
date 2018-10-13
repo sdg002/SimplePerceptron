@@ -29,5 +29,26 @@ namespace Perceptron.entity
         {
             return $"Weights={Weights.Length}; Bias={this.Bias.Value}; ID={_id}";
         }
+        public override bool Equals(object obj)
+        {
+            Neuron target = obj as Neuron;
+            if (target == null) return false;
+            if (this.Weights != null && target.Weights != null)
+            {
+                if (this.Weights.Length != target.Weights.Length) return false;
+                for(int wtindex=0;wtindex<this.Weights.Length;wtindex++)
+                {
+                    double wtTarget = target.Weights[wtindex].Value;
+                    double wtSource = this.Weights[wtindex].Value;
+                    if (Math.Round(wtTarget, 4) != Math.Round(wtSource, 4)) return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+            if (Math.Round(target.Bias.Value, 4) != Math.Round(this.Bias.Value, 4)) return false;
+            return true;
+        }
     }
 }

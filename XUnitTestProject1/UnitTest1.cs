@@ -71,7 +71,11 @@ namespace XUnitTestProject1
         [Fact]
         void SaveNetwork2Json()
         {
-            throw new NotImplementedException();
+            var mlp = Perceptron.core.Utils.CreateNetwork(3, 4, 8, 2);
+            Perceptron.core.Utils.RandomizeNetworkWeights(mlp);
+            string json = Perceptron.core.Utils.SaveNetworkToJson(mlp);
+            var mlpFromJson = Perceptron.core.Utils.LoadNetworkFromJson(json);
+            Assert.Equal(mlp, mlpFromJson);
         }
     }
 }

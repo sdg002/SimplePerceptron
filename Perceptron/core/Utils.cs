@@ -31,7 +31,8 @@ namespace Perceptron.core
                 int countOfNodes = nodesperlayer[layerindex];
                 if (countOfNodes <= 0)
                     throw new ArgumentException($"The count of nodes must be positive in every layer. Layer index={layerindex}");
-                for(int nodeindex=0;nodeindex<countOfNodes;nodeindex++)
+                layer.Comments = $"Layer={layerindex}";
+                for (int nodeindex=0;nodeindex<countOfNodes;nodeindex++)
                 {
                     Neuron node = new Neuron();
                     if (layerindex == 0)
@@ -228,13 +229,23 @@ namespace Perceptron.core
                 throw new NotImplementedException($"This activation type is not yet implemented. {layer.Activation}");
             }
         }
+        /// <summary>
+        /// Serializes the network state to JSON
+        /// </summary>
+        /// <param name="network"></param>
+        /// <returns></returns>
         public static string SaveNetworkToJson(Perceptron.entity.MultilayerPerceptron network)
         {
-            throw new NotImplementedException();
+            //var ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+            var settings = new Newtonsoft.Json.JsonSerializerSettings { TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All };
+            string json= Newtonsoft.Json.JsonConvert.SerializeObject(network, Newtonsoft.Json.Formatting.Indented,settings);
+            return json;
         }
         public static Perceptron.entity.MultilayerPerceptron LoadNetworkFromJson(string json)
         {
-            throw new NotImplementedException();
+            //var ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+            var network = Newtonsoft.Json.JsonConvert.DeserializeObject<Perceptron.entity.MultilayerPerceptron>(json);
+            return network;
         }
     }
 }

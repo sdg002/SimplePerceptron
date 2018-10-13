@@ -39,7 +39,30 @@ namespace Perceptron.entity
                 _layers = value;
             }
         }
+        public override bool Equals(object obj)
+        {
+            MultilayerPerceptron target = obj as MultilayerPerceptron;
+            if (target == null) return false;
+            if (target.Inputs != this.Inputs) return false;
+            if (target.Layers != null && this.Layers == null) return false;
+            if (target.Layers == null && this.Layers != null) return false;
+            if (target.Layers!=null && this.Layers!=null)
+            {
+                if (target.Layers.Length != this.Layers.Length) return false;
+                for (int layerindex = 0; layerindex < this.Layers.Length; layerindex++)
+                {
+                    Layer thisLayer = this.Layers[layerindex];
+                    Layer targetLayer = target.Layers[layerindex];
+                    for (int nodeindex = 0; nodeindex < thisLayer.Nodes.Length; nodeindex++)
+                    {
+                        Neuron nodeSource = thisLayer.Nodes[nodeindex];
+                        Neuron nodeTarget = targetLayer.Nodes[nodeindex];
+                        if (nodeSource.Equals(nodeTarget) == false) return false;
+                    }
+                }
+            }
+            return true;
+        }
 
-        
     }
 }
