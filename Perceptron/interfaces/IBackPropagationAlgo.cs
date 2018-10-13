@@ -27,6 +27,10 @@ namespace Perceptron.interfaces
         /// </summary>
         int MaxEpochs { get; set; }
         /// <summary>
+        /// Returns the epochs that have completed
+        /// </summary>
+        int EpochsElapsed { get; }
+        /// <summary>
         /// The collection of vectors which will be used by the backpropagation training algorithm
         /// </summary>
         IEnumerable<Vector> Vectors { get; set; }

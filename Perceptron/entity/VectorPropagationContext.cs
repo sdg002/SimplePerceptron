@@ -54,6 +54,10 @@ namespace Perceptron.entity
         /// Used for recording the MSE at the output layer. This is derived from the values held in OutputLayerErrors
         /// </summary>
         public double MeanSquaredError { get; internal set; }
-
+        /// <summary>
+        /// Actual outputs produced at the output layer. These are the activations on the output layer
+        /// Could have been obtained from the NodeActivationCache. Added for simplicity of reporting
+        /// </summary>
+        public double[] Outputs { get; internal set; }
     }
 }

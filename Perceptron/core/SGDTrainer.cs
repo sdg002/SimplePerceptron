@@ -10,12 +10,19 @@ namespace Perceptron.core
 {
     public class SGDTrainer : interfaces.IBackPropagationAlgo
     {
+        int _epochsElapsed;
         public double LearningRate { get ; set ; }
         public MultilayerPerceptron Perceptron { get ; set ; }
         public int NotificationEpochs { get; set; }
         public IEnumerable<Vector> Vectors { get ; set ; }
         public int MaxEpochs { get ; set ; }
-
+        public int EpochsElapsed
+        {
+            get
+            {
+                return _epochsElapsed;
+            }
+        }
         public event EventHandler<NotifyProgressArgs> OnNotifyProgressArgs;
         public event EventHandler<EpochBeginArgs> OnEpochBegin;
 
@@ -26,8 +33,10 @@ namespace Perceptron.core
 
         public void Train()
         {
-            for(int epochs=0;epochs<this.MaxEpochs;epochs++)
+            _epochsElapsed = 0;
+            for (int epochs=0;epochs<this.MaxEpochs;epochs++)
             {
+                _epochsElapsed++;
                 List<VectorPropagationContext> wrappers = new List<VectorPropagationContext>();
                 foreach (Vector vec in this.Vectors)
                 {
@@ -37,8 +46,8 @@ namespace Perceptron.core
                     core.Utils.DoBackwardPassComputeDeltas(this.Perceptron, ctx);
                     this.ComputeWeightUpdates(ctx);
                 }
-                //bool cancel=NotifyProgress(epochs, wrappers);
-                //if (cancel) return;
+                bool cancel=NotifyProgress( wrappers);
+                if (cancel) return;
             }
         }
         /// <summary>
@@ -85,17 +94,17 @@ namespace Perceptron.core
                 }
             }
         }
-        private bool NotifyProgress(int epochs, List<VectorPropagationContext> wrappers)
+        private bool NotifyProgress( List<VectorPropagationContext> wrappers)
         {
-            return false;
             if (this.OnNotifyProgressArgs == null) return false;
             if (this.NotificationEpochs <= 0) return false;
-            if (epochs == 0) return false;
-            if (epochs % this.NotificationEpochs != 0) return false;
+            if (_epochsElapsed == 0) return false;
+            if (_epochsElapsed % this.NotificationEpochs != 0) return false;
             NotifyProgressArgs args = new NotifyProgressArgs
             {
-                Cancel =false,
-                Epochs =epochs
+                Cancel = false,
+                Vectors = wrappers.ToArray()
+                //Epochs =_epochsElapsed
             };
             this.OnNotifyProgressArgs(this, args);
             return args.Cancel;

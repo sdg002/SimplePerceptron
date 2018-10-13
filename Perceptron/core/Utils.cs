@@ -77,20 +77,23 @@ namespace Perceptron.core
                 if (layerindex == network.Layers.Length -1 )
                 {
                     //We are on the last layer
-                    ctx.OutputLayerErrors = new double[countOfNodes];
+                    double[] errorsOutputLayer = new double[countOfNodes];
+                    ctx.Outputs = new double[countOfNodes];
                     for (int nodeindex = 0; nodeindex < countOfNodes; nodeindex++)
                     {
                         Neuron nodeCurrent = layerCurrent.Nodes[nodeindex];
                         double outputExpected = ctx.Vector.Outputs[nodeindex];
                         double outputActual = ctx.NodeActivationCache[nodeCurrent.GetID()];
+                        ctx.Outputs[nodeindex] = outputActual;
                         double errorAtNode = outputExpected - outputActual;
                         //ctx.NodeActivationCache[node.GetID()] = activation;
+                        errorsOutputLayer[nodeindex] = errorAtNode;
                         double dotproduct = ctx.NodeDotProductsCache[nodeCurrent.GetID()];
                         double derivative=ComputeDerivativeOfActivation(layerCurrent, nodeCurrent, dotproduct, outputActual);
                         double deltaNode = -errorAtNode * derivative;
                         ctx.NodeDeltaCache[nodeCurrent.GetID()] = deltaNode;
                     }
-                    double mse = 0.5*ctx.OutputLayerErrors.Select(e => e * e).Sum();
+                    double mse = 0.5* errorsOutputLayer.Select(e => e * e).Sum();
                     ctx.MeanSquaredError = mse;
                 }
                 else
