@@ -25,12 +25,6 @@ namespace Perceptron.core
         }
         public event EventHandler<NotifyProgressArgs> OnNotifyProgressArgs;
         public event EventHandler<EpochBeginArgs> OnEpochBegin;
-
-        public double[] ComputeNetworkOutput(Vector input)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Train()
         {
             _epochsElapsed = 0;
