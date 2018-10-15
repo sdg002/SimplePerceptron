@@ -41,8 +41,8 @@ namespace XUnitTestProject1
             {
                 int errors = 0;
                 Perceptron.entity.Vector[] vectorsWhichFailed = util.Helper.EvaluateVectors(trainer.Perceptron, trainer.Vectors);
-                Trace.WriteLine($"TRAIN DATA - The network generated {errors} errors after training.");
                 errors = vectorsWhichFailed.Count();
+                Trace.WriteLine($"TRAIN DATA - The network generated {errors} errors after training.");
                 Assert.True(errors == 0);
             }
             ///
@@ -52,8 +52,8 @@ namespace XUnitTestProject1
                 int errors = 0;
                 var vectorsTest = util.Helper.GenerateTrainingPointsForXor();
                 Perceptron.entity.Vector[] vectorsWhichFailed = util.Helper.EvaluateVectors(trainer.Perceptron, vectorsTest);
-                Trace.WriteLine($"TEST DATA - The network generated {errors} errors after training.");
                 errors = vectorsWhichFailed.Count();
+                Trace.WriteLine($"TEST DATA - The network generated {errors} errors after training.");
                 Assert.True(errors == 0);
             }
             string jsonTrained = Perceptron.core.Utils.SaveNetworkToJson(networkXOR);
