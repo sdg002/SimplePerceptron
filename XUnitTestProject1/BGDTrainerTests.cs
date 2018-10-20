@@ -59,6 +59,39 @@ namespace XUnitTestProject1
             string jsonTrained = Perceptron.core.Utils.SaveNetworkToJson(networkXOR);
             System.IO.File.WriteAllText("XOR.trained.json", jsonTrained);
         }
-
+        /// <summary>
+        /// Scenario:
+        ///     We are testing the notification eventing mechanism.
+        ///     NotificationEpochs=0
+        /// Expected
+        ///     No events should be fired
+        /// </summary>
+        [Fact]
+        public void NotifyProgress_NotificationEpochs_is_zero()
+        {
+            Perceptron.interfaces.IBackPropagationAlgo trainer = new Perceptron.core.BGDTrainer();
+            Perceptron.entity.MultilayerPerceptron networkXOR = util.Helper.CreateXORNetwork();
+            trainer.Vectors = util.Helper.GenerateTrainingPointsForXor();
+            trainer.Perceptron = networkXOR;
+            trainer.LearningRate = 0.3;
+            trainer.MaxEpochs = 5000;
+            trainer.NotificationEpochs = 0;
+            int countOfEventsFired = 0;
+            Action<object, Perceptron.interfaces.NotifyProgressArgs> fnNotifyHandler = delegate (object sender, Perceptron.interfaces.NotifyProgressArgs args)
+            {
+                countOfEventsFired++;
+            };
+            trainer.OnNotifyProgressArgs += new EventHandler<Perceptron.interfaces.NotifyProgressArgs>(fnNotifyHandler);
+            trainer.Train();
+            var vectorsTest = util.Helper.GenerateTrainingPointsForXor();
+            Perceptron.entity.Vector[] vectorsWhichFailed = util.Helper.EvaluateVectors(trainer.Perceptron, vectorsTest);
+            Trace.WriteLine($"TEST DATA - The network generated {vectorsWhichFailed.Count()} errors after training.");
+            ///
+            /// No events should have been fired
+            ///
+            Assert.True(countOfEventsFired == 0);
+            Assert.True(vectorsWhichFailed.Count() == 0);
+            Assert.True(trainer.EpochsElapsed == trainer.MaxEpochs);
+        }
     }
 }
