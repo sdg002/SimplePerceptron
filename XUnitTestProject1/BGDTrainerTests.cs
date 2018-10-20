@@ -93,5 +93,44 @@ namespace XUnitTestProject1
             Assert.True(vectorsWhichFailed.Count() == 0);
             Assert.True(trainer.EpochsElapsed == trainer.MaxEpochs);
         }
+        /// <summary>
+        /// Scenario:
+        ///     We are testing whether the notification mechanism is fired at the correct intervals
+        ///     NotificationEpochs=2
+        /// Expected
+        ///     Count of events fired > 0 and should be 1/2 of EpochsElapsed
+        /// </summary>
+        [Fact]
+        public void NotifyProgress_NotificationEpochs_is_2()
+        {
+            Perceptron.interfaces.IBackPropagationAlgo trainer = new Perceptron.core.BGDTrainer();
+            Perceptron.entity.MultilayerPerceptron networkXOR = util.Helper.CreateXORNetwork();
+            trainer.Vectors = util.Helper.GenerateTrainingPointsForXor();
+            trainer.Perceptron = networkXOR;
+            trainer.LearningRate = 0.3;
+            trainer.MaxEpochs = 5000;
+            trainer.NotificationEpochs = 2;
+            int countOfEventsFired = 0;
+            Action<object, Perceptron.interfaces.NotifyProgressArgs> fnNotifyHandler = delegate (object sender, Perceptron.interfaces.NotifyProgressArgs args)
+            {
+                Assert.True(Object.ReferenceEquals(sender, trainer));
+                Assert.True(args.Vectors.Length == trainer.Vectors.Count());
+                //Assert.True(args.Epochs == trainer.EpochsElapsed);
+                countOfEventsFired++;
+            };
+            trainer.OnNotifyProgressArgs += new EventHandler<Perceptron.interfaces.NotifyProgressArgs>(fnNotifyHandler);
+            trainer.Train();
+            var vectorsTest = util.Helper.GenerateTrainingPointsForXor();
+            Perceptron.entity.Vector[] vectorsWhichFailed = util.Helper.EvaluateVectors(trainer.Perceptron, vectorsTest);
+            Trace.WriteLine($"TEST DATA - The network generated {vectorsWhichFailed.Count()} errors after training.");
+            ///
+            /// Some events should have been fired
+            ///
+            Assert.True(countOfEventsFired > 0);
+            Assert.True(countOfEventsFired == trainer.EpochsElapsed / 2);
+            Assert.True(vectorsWhichFailed.Count() == 0);
+            Assert.True(trainer.EpochsElapsed == trainer.MaxEpochs);
+        }
+
     }
 }
