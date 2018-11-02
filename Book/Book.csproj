@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="AdalineTraining\LinearlySeparable\LearningCurve.log" />
+    <None Include="AdalineTraining\Training.ps1" />
     <None Include="GradientDescent\Calculator.xlsx" />
     <None Include="GradientDescent\GnuPlotShowFunction.plt" />
     <None Include="GradientDescent\GnuPlotGradientDescentProgress.plt" />
@@ -48,6 +50,10 @@
     <None Include="GradientDescent\LearningCurve.log" />
     <None Include="GradientDescent\Readme.md" />
     <None Include="Readme.md" />
+    <Content Include="AdalineTraining\LinearlySeparable\Class1.txt" />
+    <Content Include="AdalineTraining\LinearlySeparable\Class2.txt" />
+    <None Include="AdalineTraining\LinearlySeparable\GnuDisplayTrainingPoints.plt" />
+    <None Include="AdalineTraining\LinearlySeparable\GnuPlotLearningCurve.plt" />
     <Content Include="SimplePerceptronTraining\LinearlySeparable\Class1.txt" />
     <Content Include="SimplePerceptronTraining\LinearlySeparable\Class2.txt" />
     <Content Include="SimplePerceptronTraining\Not-LinearlySeparable\Class1.txt" />
