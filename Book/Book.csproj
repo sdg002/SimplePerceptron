@@ -46,6 +46,7 @@
     <None Include="GradientDescent\GnuPlotGradientDescentProgress.plt" />
     <None Include="GradientDescent\GradientDescent.ps1" />
     <None Include="GradientDescent\LearningCurve.log" />
+    <None Include="GradientDescent\Readme.md" />
     <None Include="Readme.md" />
     <Content Include="SimplePerceptronTraining\LinearlySeparable\Class1.txt" />
     <Content Include="SimplePerceptronTraining\LinearlySeparable\Class2.txt" />
