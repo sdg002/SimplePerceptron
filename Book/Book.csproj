@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Readme.txt" />
+    <None Include="Readme.md" />
     <Content Include="SimplePerceptronTraining\LinearlySeparable\Class1.txt" />
     <Content Include="SimplePerceptronTraining\LinearlySeparable\Class2.txt" />
     <Content Include="SimplePerceptronTraining\Not-LinearlySeparable\Class1.txt" />
