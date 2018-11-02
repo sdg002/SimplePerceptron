@@ -42,8 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="GradientDescent\Calculator.xlsx" />
-    <None Include="GradientDescent\Cmd.plt" />
-    <None Include="GradientDescent\CmdGradient.plt" />
+    <None Include="GradientDescent\GnuPlotShowFunction.plt" />
+    <None Include="GradientDescent\GnuPlotGradientDescentProgress.plt" />
     <None Include="GradientDescent\GradientDescent.ps1" />
     <None Include="GradientDescent\LearningCurve.log" />
     <None Include="Readme.md" />

@@ -23,9 +23,9 @@ function GetPathToGradientDescentLogFile()
 #Delete the training curve log file if it exists. 
 #When to call this function? Every time the script runs.
 #
-function DeleteTrainingLogFile
+function DeleteGradientDescentLogFile
 {
-    $path=GetPathToGradientDescentLogFile()
+    $path=GetPathToGradientDescentLogFile
     if (Test-Path -Path $path)
     {
         del $path
@@ -36,21 +36,23 @@ function DeleteTrainingLogFile
 #
 #This function will log the current value of the function ($y) at the specified iterations give by $iterations
 #Why do we need this? This will help us visualize how we gradually moved towards the minima
+#The output file will be used by GNUPLOT so it has to be CSV
 #
 function LogTrainingProgress
 {
     param([int]$iterations,[double]$x,[double]$y)
-    $path=GetPathToGradientDescentLogFile()
-    $csv="{0},{1},{2}" -f $iterations,$x.ToString(".###"),$y.ToString(".###")
+    $path=GetPathToGradientDescentLogFile
+    $display="Iteration={0},X={1},Y={2}" -f $iterations,$x.ToString("F"),$y.ToString("F")
+    $csv="{0},{1},{2}" -f $iterations,$x.ToString("F"),$y.ToString("F")
     $csv | out-file -Append -FilePath $path -Encoding ascii
     Write-Host $csv
 }
 
 [double]$global:xinitial=7.0
-[int]$global:MAXITERATIONS=Read-Host -Prompt "Enter maximum number of epochs"
-[double]$global:learningrate=Read-Host -Prompt "Enter learning rate (e.g. 0.2)"
+[int]$global:MAXITERATIONS=Read-Host -Prompt "Enter maximum number of epochs. (E.g: 10)"
+[double]$global:learningrate=Read-Host -Prompt "Enter learning rate (E.g. 0.2)"
 $x=$global:xinitial;
-DeleteTrainingLogFile
+DeleteGradientDescentLogFile
 
 
 for($epochs=0;$epochs -lt $global:MAXITERATIONS;$epochs++)
@@ -60,6 +62,7 @@ for($epochs=0;$epochs -lt $global:MAXITERATIONS;$epochs++)
     $gradient=CalculateGradientOfFunction -x $x
     $delta=$global:learningrate * $gradient;
     $xNew=$x - $delta;
-    Write-Host ("GRADIENT={0}   DELTA={1}" -f $gradient.ToString(".###"),$delta.ToString(".###"))
+    Write-Host "---------------------------------------------------------------------" -ForegroundColor Green
+    Write-Host ("GRADIENT={0}   DELTA={1}" -f $gradient.ToString("F"),$delta.ToString("F"))
     $x=$xNew;
 }

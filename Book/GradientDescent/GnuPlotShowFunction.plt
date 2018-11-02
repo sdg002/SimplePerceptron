@@ -10,10 +10,12 @@ set xlabel 'X1' font ",20"
 set ylabel 'X2' font ",20"
 #set xrange [-5:5]
 #set yrange [-5:5]
-set xrange [-10:10]
-set yrange [-10:10]
+set xrange [-0:10]
+set yrange [-0:10]
 set grid
 set xtics 1  font ",20"
 set ytics 1  font ",20"
 set key font ",20"
-plot x*x
+set label "minima" at 5,0.8
+plot (x-5)*(x-5) + 1
+

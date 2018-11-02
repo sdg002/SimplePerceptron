@@ -16,7 +16,7 @@ set key font ",20"
 
 set object 1 circle at 5,1 size 0.05 fillcolor rgb "black" fillstyle solid
 set label "minima" at 5,0.8
-set object 2 circle at 7,5 size 0.05 fillcolor rgb "black" fillstyle solid
+set object 2 circle at 7,5 size 0.02 fillcolor rgb "black" fillstyle solid
 set label "start" at 7.1,5
 plot (x-5)*(x-5) +1 
-replot 'LearningCurve.log' using 2:3 with linespoints title 'learning curve' ps 3
+replot 'LearningCurve.log' using 2:3 with linespoints title 'learning curve' pt 7 ps 1
