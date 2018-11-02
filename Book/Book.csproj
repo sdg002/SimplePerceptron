@@ -46,15 +46,14 @@
     <Content Include="SimplePerceptronTraining\LinearlySeparable\Class2.txt" />
     <Content Include="SimplePerceptronTraining\Not-LinearlySeparable\Class1.txt" />
     <Content Include="SimplePerceptronTraining\Not-LinearlySeparable\Class2.txt" />
-    <Content Include="SimplePerceptronTraining\Not-LinearlySeparable\LearningCurve.txt" />
-    <Content Include="SimplePerceptronTraining\Readme.txt" />
+    <None Include="SimplePerceptronTraining\Readme.md" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="SimplePerceptronTraining\LinearlySeparable\cmd.plt" />
-    <None Include="SimplePerceptronTraining\LinearlySeparable\CmdLearning.plt" />
+    <None Include="SimplePerceptronTraining\LinearlySeparable\GnuDisplayTrainingPoints.plt" />
+    <None Include="SimplePerceptronTraining\LinearlySeparable\GnuPlotLearningCurve.plt" />
     <None Include="SimplePerceptronTraining\LinearlySeparable\LearningCurve.log" />
-    <None Include="SimplePerceptronTraining\Not-LinearlySeparable\cmd.plt" />
-    <None Include="SimplePerceptronTraining\Not-LinearlySeparable\CmdLearning.plt" />
+    <None Include="SimplePerceptronTraining\Not-LinearlySeparable\GnuDisplayTrainingPoints.plt" />
+    <None Include="SimplePerceptronTraining\Not-LinearlySeparable\GnuPlotLearningCurve.plt" />
     <None Include="SimplePerceptronTraining\Not-LinearlySeparable\LearningCurve.log" />
     <None Include="SimplePerceptronTraining\Training.ps1" />
   </ItemGroup>

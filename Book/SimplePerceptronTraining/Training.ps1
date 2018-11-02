@@ -181,7 +181,7 @@ function DeleteTrainingLogFile
         del $path
     }
 }
-[int]$global:MAXITERATIONS=Read-Host -Prompt "Enter maximum number of epochs. E.g 10"
+[int]$global:MAXITERATIONS=Read-Host -Prompt "Enter maximum number of epochs. E.g 5 for linearly separable, E.g.100 for not-linearly separable"
 $merged=MergeTwoClasses -class1 $ptsClass1 -class2 $ptsClass2
 DeleteTrainingLogFile
 $minErrors=[int]::MaxValue;
@@ -201,4 +201,10 @@ for($epochs=1;$epochs -lt $global:MAXITERATIONS;$epochs++)
     }
     "----------------------------------------------------------------------------------------"    
 }
+Write-Host "----------------------------------------------------------------------------------------"    
 Write-Host ("Min errors {0}" -f $minErrors)
+Write-Host ("Learning progress was written to {0}" -f "LearningCurve.log")
+Write-Host ("Double click the file  {0} to view the GNUPLOT of the training points" -f "GnuDisplayTrainingPoints.plt")
+Write-Host ("Double click the file  {0} to view the GNUPLOT of the learning curve" -f "GnuPlotLearningCurve.plt")
+Read-Host "Training complete. Press a key to continue"
+
