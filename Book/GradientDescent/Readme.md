@@ -1,6 +1,6 @@
 ﻿**About**
 
-Demonstrates Gradient Descent to find the minima of a parabolic curve
+Demonstrates the working of the Gradient Descent algorithm to find the minima of a parabolic curve
 
 **Equation of the parabola**
 
