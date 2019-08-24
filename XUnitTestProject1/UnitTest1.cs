@@ -9,6 +9,13 @@ namespace XUnitTestProject1
 {
     public class UnitTest1
     {
+        /// <summary>
+        /// In this test we are creating a network 
+        ///     which accepts a 3 dimensional input vector
+        ///     First hidden layer with 4 nodes
+        ///     Second hidden layer with 8 nodes
+        ///     Output layer with 2 nodes
+        /// </summary>
         [Fact]        
         public void CreateNewNetwork()
         {
@@ -68,6 +75,9 @@ namespace XUnitTestProject1
         {
             throw new NotImplementedException();
         }
+        /// <summary>
+        /// In this test we are saving a trained network to a JSON file
+        /// </summary>
         [Fact]
         void SaveNetwork2Json()
         {

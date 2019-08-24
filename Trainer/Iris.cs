@@ -65,7 +65,6 @@ namespace Trainer
                 vectorsUnnormalized.Add(vec);
 
             }
-            you were here
             //TODO normalize the vectors
             //TODO split into training and testing
             throw new NotImplementedException();
