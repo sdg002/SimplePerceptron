@@ -11,10 +11,11 @@ This is a Visual Studio 2017 solution comprising of a reusable implementation of
 This is a class library that implements a simple multi-layer perceptron
 
 ## Book/AdalineTraining
-to do
+Demonstrates Widrow-Hoff learning algorithm
 
 ## Book/GradientDescent
-to do
+Demonstrates the principles of gradient descent by trying to find the minima of a parabolic curve
 
 ## Book/SimplePerceptronTraining
-to do
+Demonstrates the the very fundamental learning principles behind Rosenblatt's perceptron using the SGN() activation function
+
