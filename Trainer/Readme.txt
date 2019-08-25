@@ -1,1 +1,0 @@
-﻿End to end examples of running a training session using a simple C# console application
