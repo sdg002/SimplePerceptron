@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Perceptron.core.SGDTrainer">
+    <Position X="1.25" Y="1" Width="1.5" />
+    <Members>
+      <Field Name="_epochsElapsed" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAggAEgAAAQAAEAAAAAgAAAAAAAAAAAAgAAACACABQ=</HashCode>
+      <FileName>C:\Users\saurabhd\MyTrials\MachineLearnings\SimplePerceptron\Perceptron\core\SGDTrainer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Perceptron.core.BGDTrainer">
+    <Position X="4" Y="1" Width="1.5" />
+    <Members>
+      <Field Name="_epochsElapsed" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAggAEgAAAQAAEEAAAAgAAAAAAAAAAAAgAAgCACABQ=</HashCode>
+      <FileName>C:\Users\saurabhd\MyTrials\MachineLearnings\SimplePerceptron\Perceptron\core\BGDTrainer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Perceptron.entity.MultilayerPerceptron">
+    <Position X="6.75" Y="2.25" Width="2.25" />
+    <Members>
+      <Field Name="_layers" Hidden="true" />
+      <Field Name="_noOfInputs" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAgAAAAEAAAAAAEAAAAAAAAEAA=</HashCode>
+      <FileName>C:\Users\saurabhd\MyTrials\MachineLearnings\SimplePerceptron\Perceptron\entity\MultilayerPerceptron.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Perceptron.entity.Layer">
+    <Position X="9.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAMAA=</HashCode>
+      <FileName>C:\Users\saurabhd\MyTrials\MachineLearnings\SimplePerceptron\Perceptron\entity\Layer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Perceptron.entity.Neuron">
+    <Position X="12" Y="2" Width="1.5" />
+    <Members>
+      <Field Name="_id" Hidden="true" />
+      <Field Name="_idtracker" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAQAEgABAgAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\saurabhd\MyTrials\MachineLearnings\SimplePerceptron\Perceptron\entity\Neuron.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Perceptron.entity.Vector">
+    <Position X="2.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAgAAAEAAAAAAAAEAAAAAAAAAAAAAAAIAQ=</HashCode>
+      <FileName>C:\Users\saurabhd\MyTrials\MachineLearnings\SimplePerceptron\Perceptron\entity\Vector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Perceptron.entity.Weight">
+    <Position X="9.75" Y="4" Width="1.5" />
+    <Members>
+      <Field Name="_id" Hidden="true" />
+      <Field Name="_idtracker" Hidden="true" />
+      <Field Name="_value" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAQAEAABAgAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>C:\Users\saurabhd\MyTrials\MachineLearnings\SimplePerceptron\Perceptron\entity\Weight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Courier New" Size="10" />
+</ClassDiagram>
