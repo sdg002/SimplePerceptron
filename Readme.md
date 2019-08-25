@@ -6,31 +6,15 @@ This is a Visual Studio 2017 solution comprising of a reusable implementation of
 ## Training algorithms implemented
 1. Stochastic gradient descent
 2. Batch gradient descent
-3. Minibatch gradient descent
 
-to be done
-## List of important classes
-1. c1
-2. c2
-3. c3
+## Perceptron
+This is a class library that implements a simple multi-layer perceptron
 
-## Quick Start - Train a multilayer perceptron to solve the XOR classification
-to be done
+## Book/AdalineTraining
+to do
 
-## Quick Start - Saving a trained network to an external file
-to be done
+## Book/GradientDescent
+to do
 
-## Quick Start - Loading a trained network from an external file
-to be done
-
-## Demo - Trainer Console executable
-to be done
-
-
-## An overview of the internal C# implementation of the training algoritm
-### Stochastic Gradient Descent algorithm
-to be done
-
-### Batch Gradient Descent algorithm
-to be done
-
+## Book/SimplePerceptronTraining
+to do
