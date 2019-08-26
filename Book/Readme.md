@@ -1,8 +1,8 @@
 ﻿This project contains PowerShell scripts and supporting files that were used for explaining the basic concepts of Perceptrons
 
 
-**SimplePerceptronTraining** - Demonstrates the the very fundamental learning principles behind Rosenblatt's perceptron using the SGN() activation function
+**AdalineTraining** - Demonstrates Widrow-Hoff learning algorithm. The algorithm is implemented in the PowerShell script *Training.ps1*
 
-**GradientDescent** - Demonstrates the principles of gradient descent by trying to find the minima of a parabolic curve
+**SimplePerceptronTraining** - Demonstrates the the very fundamental learning principles behind Rosenblatt's perceptron using the SGN() activation function. The algorithm is implemented in the PowerShell script *Training.ps1*
 
-**AdalineTraining** - Demonstrates Widrow-Hoff learning algorithm
+**GradientDescent** - Demonstrates the principles of gradient descent by trying to find the minima of a parabolic curve. This algorithm is implemented in the PowerShell script *GradientDescent.ps1*
