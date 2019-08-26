@@ -11,6 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTestProject1", "XUnitT
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F87E5D11-861F-430D-B7A9-9C212331BBD4}"
 	ProjectSection(SolutionItems) = preProject
+		KindleBookDescription.html = KindleBookDescription.html
 		Readme.md = Readme.md
 	EndProjectSection
 EndProject
