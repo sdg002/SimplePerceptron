@@ -1,5 +1,7 @@
 #  Build a Multilayer Perceptron using C#
 
+![My book on Kindke](https://images-eu.ssl-images-amazon.com/images/I/51Kkc1JFMPL.jpg)
+
 ## About this code
 This is a Visual Studio 2017 solution comprising of a reusable implementation of Multilayer Perceptron. The code has been compiled for compatibility with .NET 4.6 and .NET Core 2.0
 
